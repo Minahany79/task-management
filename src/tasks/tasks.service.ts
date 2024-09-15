@@ -23,10 +23,16 @@ export class TasksService {
     return this.taskRepository.find({ where: { user: { id: userId } } });
   }
 
-  findOne(taskId: number, userId: number) {
-    return this.taskRepository.findOne({
+  async findOne(taskId: number, userId: number) {
+    const task = await this.taskRepository.findOne({
       where: { id: taskId, user: { id: userId } },
     });
+
+    if (!task) {
+      throw new NotFoundException(`Task with ID ${taskId} not found`);
+    }
+
+    return task;
   }
 
   async update(updateTaskDto: UpdateTaskDto, taskId: number, userId: number) {

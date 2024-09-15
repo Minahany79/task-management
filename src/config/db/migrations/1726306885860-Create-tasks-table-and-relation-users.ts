@@ -1,7 +1,9 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreateTasksTableAndRelationUsers1726306885860 implements MigrationInterface {
-  name = "CreateTasksTableAndRelationUsers1726306885860";
+export class CreateTasksTableAndRelationUsers1726306885860
+  implements MigrationInterface
+{
+  name = 'CreateTasksTableAndRelationUsers1726306885860';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
@@ -13,7 +15,9 @@ export class CreateTasksTableAndRelationUsers1726306885860 implements MigrationI
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`ALTER TABLE \`tasks\` DROP FOREIGN KEY \`FK_166bd96559cb38595d392f75a35\``);
+    await queryRunner.query(
+      `ALTER TABLE \`tasks\` DROP FOREIGN KEY \`FK_166bd96559cb38595d392f75a35\``,
+    );
     await queryRunner.query(`DROP TABLE \`tasks\``);
   }
 }

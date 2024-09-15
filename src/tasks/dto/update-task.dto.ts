@@ -10,7 +10,7 @@ export class UpdateTaskDto extends PartialType(CreateTaskDto) {
   })
   @IsString()
   @Length(3, 64)
-  title: string;
+  title?: string;
 
   @ApiProperty({
     description:
@@ -20,5 +20,5 @@ export class UpdateTaskDto extends PartialType(CreateTaskDto) {
   })
   @IsString()
   @Length(3, 255)
-  description: string;
+  description?: string;
 }

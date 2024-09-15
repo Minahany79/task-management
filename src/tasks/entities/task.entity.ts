@@ -7,7 +7,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { TaskStatus } from '../enums/task-status';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('tasks')
 export class Task {

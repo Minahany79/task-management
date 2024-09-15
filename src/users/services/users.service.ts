@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
 import { User } from '../entities/user.entity';
@@ -18,12 +18,18 @@ export class UsersService {
     @InjectRepository(User) private userRepository: Repository<User>,
     private configService: ConfigService,
   ) {}
-  getUserById(id: number, relations?: string[]) {
-    return this.userRepository.findOne({ where: { id }, relations });
+  async findOne(id: number) {
+    const userInDb = await this.userRepository.findOne({ where: { id } });
+
+    if (!userInDb) {
+      throw new NotFoundException(`Cannot find the requested user`);
+    }
+
+    return userInDb;
   }
 
-  getUserByEmail(email: string, relations?: string[]) {
-    return this.userRepository.findOne({ where: { email }, relations });
+  findOneByEmail(email: string) {
+    return this.userRepository.findOne({ where: { email: ILike(email) } });
   }
 
   async remove(id: number) {
@@ -36,12 +42,12 @@ export class UsersService {
     return result;
   }
 
-  async create(createUserDto: CreateUserDto) {
+  create(createUserDto: CreateUserDto) {
     return this.userRepository.save(createUserDto);
   }
 
   async updatePassword(updatePasswordDto: UpdatePasswordDto, userId: number) {
-    const userInDb = await this.getUserById(userId);
+    const userInDb = await this.findOne(userId);
 
     if (!userInDb) {
       throw new NotFoundException(`Cannot find the requested user`);
@@ -61,15 +67,13 @@ export class UsersService {
   }
 
   async update(updateUserDto: UpdateUserDto, userId: number) {
-    const userInDb = await this.getUserById(userId);
+    const userInDb = await this.findOne(userId);
 
     if (!userInDb) {
       throw new NotFoundException(`Cannot find the requested user`);
     }
 
-    const isEmailExist = await this.getUserByEmail(
-      updateUserDto.email.toLowerCase(),
-    );
+    const isEmailExist = await this.findOneByEmail(updateUserDto.email);
 
     if (isEmailExist && isEmailExist.email !== userInDb.email) {
       throw new BadRequestException(`Email already exist`);

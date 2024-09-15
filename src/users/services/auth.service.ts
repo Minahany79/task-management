@@ -20,7 +20,7 @@ export class AuthService {
   ) {}
 
   async signUp(createUserDto: CreateUserDto) {
-    const userInDb = await this.usersService.getUserByEmail(
+    const userInDb = await this.usersService.findOneByEmail(
       createUserDto.email,
     );
     if (userInDb) {
@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto) {
-    const userInDb = await this.usersService.getUserByEmail(loginDto.email);
+    const userInDb = await this.usersService.findOneByEmail(loginDto.email);
     if (!userInDb) {
       throw new NotFoundException('User not found');
     }

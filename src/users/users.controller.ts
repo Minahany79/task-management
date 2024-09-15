@@ -120,7 +120,7 @@ export class UsersController {
     description: 'Unauthorized. Invalid or missing token.',
   })
   getCurrentUser(@CurrentUser() user: UserPayload) {
-    return this.usersService.getUserById(user.userId);
+    return this.usersService.findOne(user.userId);
   }
 
   @Patch('/change-password')
