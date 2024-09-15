@@ -14,8 +14,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './services/users.service';
 import { AuthService } from './services/auth.service';
 import { LoginDto } from './dto/login.dto';
+import { Serialize } from 'src/common/interceptors/serialize.interceptor';
+import { UserDto } from './dto/user.dto';
 
 @Controller('users')
+@Serialize(UserDto)
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
