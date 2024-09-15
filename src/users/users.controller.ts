@@ -7,6 +7,7 @@ import {
   HttpCode,
   HttpStatus,
   Get,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -17,6 +18,7 @@ import { Serialize } from 'src/common/interceptors/serialize.interceptor';
 import { UserDto } from './dto/user.dto';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { UserPayload } from 'src/common/interfaces/user.interface';
+import { AuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -38,6 +40,7 @@ export class UsersController {
 
   @Patch()
   @Serialize(UserDto)
+  @UseGuards(AuthGuard)
   update(
     @Body() updateUserDto: UpdateUserDto,
     @CurrentUser() user: UserPayload,
@@ -46,12 +49,14 @@ export class UsersController {
   }
 
   @Delete()
+  @UseGuards(AuthGuard)
   remove(@CurrentUser() user: UserPayload) {
     return this.usersService.remove(user.userId);
   }
 
   @Get('/current')
   @Serialize(UserDto)
+  @UseGuards(AuthGuard)
   getCurrentUser(@CurrentUser() user: UserPayload) {
     return this.usersService.getUserById(user.userId);
   }
