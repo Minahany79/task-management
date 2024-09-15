@@ -70,6 +70,20 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+### How to Use Swagger Documentation
+
+1. **Open Swagger UI**: Navigate to `http://localhost:3000/docs` in your browser.
+
+2. **Explore Endpoints**: The Swagger UI will display a list of available API endpoints organized by tags (e.g., Users, Tasks). Click on any endpoint to expand it and view more details.
+
+3. **Try Out Endpoints**: For each endpoint, you can:
+
+   - View the required parameters and request body.
+   - Send a request directly from Swagger UI by providing the necessary data and clicking the "Try it out" button.
+   - See the response status, headers, and body.
+
+4. **View Response Details**: After sending a request, Swagger will show you the response data, including any error messages, response codes, and the structure of the returned data.
+
 ## Project Structure
 
 The project is organized as follows:
