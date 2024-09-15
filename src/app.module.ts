@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from './users/users.module';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
@@ -13,13 +15,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         type: 'mysql',
         host: config.get('DB_HOST'),
         port: config.get('DB_PORT'),
-        database: config.get('DB_NAME'),
+        database: config.get('DB_INSTANCE'),
         username: config.get('DB_USERNAME'),
         password: config.get('DB_PASSWORD'),
         synchronize: true,
         autoLoadEntities: true,
       }),
     }),
+    UsersModule,
+    RolesModule,
   ],
   controllers: [],
   providers: [],
