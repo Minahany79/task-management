@@ -19,7 +19,7 @@ import { JwtModule } from '@nestjs/jwt';
         database: config.get('DB_INSTANCE'),
         username: config.get('DB_USERNAME'),
         password: config.get('DB_PASSWORD'),
-        synchronize: true,
+        synchronize: false,
         autoLoadEntities: true,
       }),
     }),
@@ -36,7 +36,5 @@ import { JwtModule } from '@nestjs/jwt';
     UsersModule,
     TasksModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
