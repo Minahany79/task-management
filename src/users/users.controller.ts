@@ -19,10 +19,16 @@ import { UserDto } from './dto/user.dto';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { UserPayload } from 'src/common/interfaces/user.interface';
 import { AuthGuard } from 'src/common/guards/auth.guard';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @ApiTags('Users')
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(

@@ -13,7 +13,10 @@ export class TasksService {
   ) {}
 
   create(createTaskDto: CreateTaskDto) {
-    return this.taskRepository.create(createTaskDto);
+    return this.taskRepository.save({
+      ...createTaskDto,
+      user: { id: createTaskDto.userId },
+    });
   }
 
   findAll(userId: number) {
@@ -26,11 +29,10 @@ export class TasksService {
     });
   }
 
-  update(updateTaskDto: UpdateTaskDto, taskId: number, userId: number) {
-    const taskInDb = this.taskRepository.findOne({
+  async update(updateTaskDto: UpdateTaskDto, taskId: number, userId: number) {
+    const taskInDb = await this.taskRepository.findOne({
       where: { id: taskId, user: { id: userId } },
     });
-
     if (!taskInDb) {
       throw new NotFoundException(`Cannot find the requested task`);
     }
@@ -40,8 +42,8 @@ export class TasksService {
     );
   }
 
-  remove(taskId: number, userId: number) {
-    const taskInDb = this.taskRepository.findOne({
+  async remove(taskId: number, userId: number) {
+    const taskInDb = await this.taskRepository.findOne({
       where: { id: taskId, user: { id: userId } },
     });
 
