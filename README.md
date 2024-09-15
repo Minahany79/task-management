@@ -84,6 +84,24 @@ $ npm run test:cov
 
 4. **View Response Details**: After sending a request, Swagger will show you the response data, including any error messages, response codes, and the structure of the returned data.
 
+# Environment vars
+
+This project uses the following environment variables:
+
+| Name                | Description                                         | Default Value               |
+| ------------------- | --------------------------------------------------- | --------------------------- |
+| PORT                | Custom port that the application will be running on | 3000                        |
+| SERVICE_NAME        | The name of the current service                     | Task Management Application |                   |                    |
+| NODE_ENV            | Current environment                                 | dev                         |
+| DB_TYPE             | Database type                                       | mysql                       |
+| DB_HOST             | Database server host                                | localhost                   |
+| DB_PORT             | Database port                                       | 3306                        |
+| DB_USERNAME         | Database username                                   | root                        |
+| DB_PASSWORD         | Database password                                   | password                    |
+| DB_INSTANCE         | Database name                                       | task_management_db          |
+| TOKEN_EXPIRY_DURATION_IN_DAYS         | Expiry token date                                       | 7d          |
+| JWT_SECRET         | Secret token key                                     |           |
+
 ## Project Structure
 
 The project is organized as follows:
