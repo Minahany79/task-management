@@ -30,38 +30,41 @@ export class TasksService {
   }
 
   async update(updateTaskDto: UpdateTaskDto, taskId: number, userId: number) {
-    const taskInDb = await this.taskRepository.findOne({
-      where: { id: taskId, user: { id: userId } },
-    });
-    if (!taskInDb) {
-      throw new NotFoundException(`Cannot find the requested task`);
-    }
-    return this.taskRepository.update(
+    const result = await this.taskRepository.update(
       { id: taskId, user: { id: userId } },
       updateTaskDto,
     );
+    if (result.affected === 0) {
+      throw new NotFoundException(`Cannot find the requested task`);
+    }
+
+    return result;
   }
 
   async remove(taskId: number, userId: number) {
-    const taskInDb = await this.taskRepository.findOne({
-      where: { id: taskId, user: { id: userId } },
+    const result = await this.taskRepository.delete({
+      id: taskId,
+      user: { id: userId },
     });
 
-    if (!taskInDb) {
+    if (result.affected === 0) {
       throw new NotFoundException(`Cannot find the requested task`);
     }
-    return this.taskRepository.delete({ id: taskId, user: { id: userId } });
+
+    return result;
   }
 
   async updateTaskStatus(taskId: number, userId: number) {
-    const taskInDb = await this.taskRepository.findOne({
-      where: { id: taskId, user: { id: userId } },
-    });
-    if (!taskInDb) {
+    const result = await this.taskRepository.update(
+      { id: taskId, user: { id: userId } },
+      {
+        status: TaskStatus.Completed,
+      },
+    );
+    if (result.affected === 0) {
       throw new NotFoundException(`Cannot find the requested task`);
     }
-    return this.taskRepository.update(taskId, {
-      status: TaskStatus.Completed,
-    });
+
+    return result;
   }
 }

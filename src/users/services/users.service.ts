@@ -26,8 +26,14 @@ export class UsersService {
     return this.userRepository.findOne({ where: { email }, relations });
   }
 
-  remove(id: number) {
-    return this.userRepository.delete(id);
+  async remove(id: number) {
+    const result = await this.userRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Cannot find the requested user`);
+    }
+
+    return result;
   }
 
   async create(createUserDto: CreateUserDto) {
