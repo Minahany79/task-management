@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
-import { RolesModule } from './roles/roles.module';
 import { TasksModule } from './tasks/tasks.module';
 import { JwtModule } from '@nestjs/jwt';
 
@@ -35,7 +34,6 @@ import { JwtModule } from '@nestjs/jwt';
       }),
     }),
     UsersModule,
-    RolesModule,
     TasksModule,
   ],
   controllers: [],

@@ -1,4 +1,3 @@
-import { Role } from 'src/roles/role.entity';
 import { Task } from 'src/tasks/entities/task.entity';
 import {
   Entity,
@@ -6,7 +5,6 @@ import {
   CreateDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  ManyToOne,
   OneToMany,
 } from 'typeorm';
 
@@ -31,9 +29,6 @@ export class User {
   @Column()
   @UpdateDateColumn()
   modificationDate!: Date;
-
-  @ManyToOne(() => Role, (Role) => Role.users, { onDelete: 'CASCADE' })
-  role!: Role;
 
   @OneToMany(() => Task, (task) => task.user)
   tasks!: Task[];

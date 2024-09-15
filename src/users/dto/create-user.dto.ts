@@ -1,12 +1,5 @@
-import {
-  IsEmail,
-  IsString,
-  IsStrongPassword,
-  Length,
-  IsEnum,
-} from 'class-validator';
+import { IsEmail, IsString, IsStrongPassword, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Role } from '../../roles/role.entity'; // Assuming Role is an entity or enum
 
 export class CreateUserDto {
   @ApiProperty({
@@ -30,6 +23,4 @@ export class CreateUserDto {
   })
   @IsStrongPassword()
   password: string;
-
-  role: Role;
 }
