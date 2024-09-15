@@ -1,14 +1,33 @@
-import { IsEmail, IsString, IsStrongPassword, Length } from 'class-validator';
-import { Role } from '../../roles/role.entity';
+import {
+  IsEmail,
+  IsString,
+  IsStrongPassword,
+  Length,
+  IsEnum,
+} from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { Role } from '../../roles/role.entity'; // Assuming Role is an entity or enum
 
 export class CreateUserDto {
+  @ApiProperty({
+    description: 'The name of the user',
+    example: 'John Doe',
+  })
   @IsString()
   @Length(3, 64)
   name: string;
 
+  @ApiProperty({
+    description: 'The email of the user',
+    example: 'john.doe@example.com',
+  })
   @IsEmail()
   email: string;
 
+  @ApiProperty({
+    description: 'The password of the user',
+    example: 'StrongPass123!',
+  })
   @IsStrongPassword()
   password: string;
 
