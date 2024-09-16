@@ -4,25 +4,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { TasksModule } from './tasks/tasks.module';
 import { JwtModule } from '@nestjs/jwt';
+import { dataSourceOptions } from '../db/data-source';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'mysql',
-        host: config.get('DB_HOST'),
-        port: config.get('DB_PORT'),
-        database: config.get('DB_INSTANCE'),
-        username: config.get('DB_USERNAME'),
-        password: config.get('DB_PASSWORD'),
-        synchronize: false,
-        autoLoadEntities: true,
-      }),
-    }),
+    TypeOrmModule.forRoot(dataSourceOptions),
     JwtModule.registerAsync({
       global: true,
       inject: [ConfigService],

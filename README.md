@@ -26,13 +26,13 @@ This is a **Task Management API** built using [NestJS](https://nestjs.com/), a p
 
    ```bash
    git clone https://github.com/mina79/task-management.git
-   cd task-management-api
+   cd task-management
    ```
 
 2. Install dependencies
 
 ```bash
-cd task-management-api
+cd task-management
 npm install
 ```
 
@@ -40,6 +40,12 @@ npm install
 
 ```bash
 CREATE DATABASE task_management_db;
+```
+
+5. Run migrations
+
+```bash
+npm run migration:run
 ```
 
 ## Project setup
