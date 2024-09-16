@@ -15,6 +15,7 @@ CREATE TABLE tasks (
     description TEXT,
     dueDate DATETIME,
     status ENUM('Pending', 'Completed') DEFAULT 'Pending',
+    creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     userId INT NOT NULL,
     FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE

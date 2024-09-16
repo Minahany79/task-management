@@ -28,8 +28,11 @@ export class Task {
   status!: TaskStatus;
 
   @Column()
-  @CreateDateColumn()
   dueDate!: Date;
+
+  @Column()
+  @CreateDateColumn()
+  creationDate!: Date;
 
   @Column()
   @UpdateDateColumn()

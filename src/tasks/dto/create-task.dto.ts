@@ -1,4 +1,4 @@
-import { IsString, Length } from 'class-validator';
+import { IsDateString, IsString, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTaskDto {
@@ -19,6 +19,13 @@ export class CreateTaskDto {
   @IsString()
   @Length(3, 255)
   description: string;
+
+  @ApiProperty({
+    description: 'The due date of the task, in ISO 8601 format (YYYY-MM-DD).',
+    example: '2024-09-30',
+  })
+  @IsDateString()
+  dueDate: string;
 
   userId: number;
 }
