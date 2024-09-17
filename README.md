@@ -48,6 +48,28 @@ CREATE DATABASE task_management_db;
 npm run migration:run
 ```
 
+# Environment vars
+
+This project uses the following environment variables:
+
+| Name                | Description                                         | Default Value               |
+| ------------------- | --------------------------------------------------- | --------------------------- |
+| PORT                | Custom port that the application will be running on | 3000                        |
+| SERVICE_NAME        | The name of the current service                     | Task Management Application |                  |                        |
+| NODE_ENV            | Current environment                                 | dev                         |
+| DB_TYPE             | Database type                                       | mysql                       |
+| DB_HOST             | Database server host                                | localhost                   |
+| DB_PORT             | Database port                                       | 3306                        |
+| DB_USERNAME         | Database username                                   | root                        |
+| DB_PASSWORD         | Database password                                   | password                    |
+| DB_INSTANCE         | Database name                                       | task_management_db          |
+| JWT_SECRET         | Secret key for encrypt token                         |           |
+| TOKEN_EXPIRY_DURATION_IN_DAYS         | Expiry date for token             |  7d         |
+| SALT_ROUNDS         | Salt round for hashing password             |  8         |
+
+
+
+
 ## Project setup
 
 ## Compile and run the project
@@ -95,6 +117,9 @@ $ npm run test:cov
 The project is organized as follows:
 
 ```bash
+db/
+├── migrations                    # Contain the migration files
+├── data-source.ts                # Data source options for connect database
 src/
 ├── auth/
 │   ├── auth.service.ts           # Authentication service
